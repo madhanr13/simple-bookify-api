@@ -1,7 +1,10 @@
+const fs = require("fs");
+const path = require("path");
 let books = [];
 
 function handleGetAllBooks(req, res) {
-  return res.json({ books });
+  const htmlfile = fs.readFileSync(path.resolve("./books.html"));
+  return res.end(htmlfile);
 }
 
 function handleGetBookByID(req, res) {

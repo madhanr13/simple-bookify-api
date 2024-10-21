@@ -4,6 +4,7 @@ const app = express();
 const port = 8000;
 const { logReqResponseOnConsole } = require("./middlewares/loggers");
 const bookRouter = require("./routes/book");
+const path = require("path");
 
 app.listen(port, function (req, res) {
   console.log(`Server started at PORT ${port}`);
@@ -12,9 +13,14 @@ app.listen(port, function (req, res) {
 // let books = [];
 
 //Middlewares
+app.use(express.static(path.resolve("./public")));
 app.use(bodyParser.json());
 app.use(logReqResponseOnConsole);
 app.use("/", bookRouter);
+
+// app.get("/hello", (req, res) => {
+//   return res.sendFile(path.resolve("./statics/hello.html"));
+// });
 
 // app.use(function (req, res, next) {
 //   console.log("Hello from middleware");
