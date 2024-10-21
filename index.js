@@ -2,27 +2,31 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
 const port = 8000;
+const { logReqResponseOnConsole } = require("./middlewares/loggers");
+const bookRouter = require("./routes/book");
 
 app.listen(port, function (req, res) {
   console.log(`Server started at PORT ${port}`);
 });
 
-let books = [];
+// let books = [];
 
-//Middlewares 
+//Middlewares
 app.use(bodyParser.json());
+app.use(logReqResponseOnConsole);
+app.use("/", bookRouter);
 
-app.use(function (req, res, next) {
-  console.log("Hello from middleware");
-  next();
-});
-app.use(function (req, res, next) {
-  console.log("Hello from middleware 2");
-  next();
-});
+// app.use(function (req, res, next) {
+//   console.log("Hello from middleware");
+//   next();
+// });
+// app.use(function (req, res, next) {
+//   console.log("Hello from middleware 2");
+//   next();
+// });
 
-app.get("/books", function (req, res) {
-  res.json({ books });
+/*app.get("/books", function (req, res) {
+  return res.json({ books });
 });
 
 app.get("/books/:bookId", function (req, res) {
@@ -44,4 +48,4 @@ app.delete("/books/:bookId", function (req, res) {
   const bookIdToDelete = req.params.bookId;
   books = books.filter((e) => e.id !== Number(bookIdToDelete));
   return res.json({ status: "deleted" });
-});
+});*/
