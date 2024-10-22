@@ -12,6 +12,8 @@ app.listen(port, function (req, res) {
 
 // let books = [];
 
+app.set("view engine", "ejs");
+app.set("views", path.resolve("views"));
 //Middlewares
 app.use(express.static(path.resolve("./public")));
 app.use(bodyParser.json());

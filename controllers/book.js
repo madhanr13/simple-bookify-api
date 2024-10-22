@@ -3,8 +3,7 @@ const path = require("path");
 let books = [];
 
 function handleGetAllBooks(req, res) {
-  const htmlfile = fs.readFileSync(path.resolve("./books.html"));
-  return res.end(htmlfile);
+  return res.render("books");
 }
 
 function handleGetBookByID(req, res) {
