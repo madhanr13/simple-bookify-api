@@ -3,7 +3,9 @@ const path = require("path");
 let books = [];
 
 function handleGetAllBooks(req, res) {
-  return res.render("books");
+  return res.render("books", {
+    books,
+  });
 }
 
 function handleGetBookByID(req, res) {

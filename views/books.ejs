@@ -7,5 +7,23 @@
   </head>
   <body>
     <h1>Books from ejs</h1>
+    <% if (books.length > 0) { %>
+    <table border="2">
+      <th>id</th>
+      <th>name</th>
+      <th>test</th>
+      <th>author</th>
+      <tr>
+        <% books.forEach(book => { %>
+        <td><%= book.id %></td>
+        <td><%= book.name %></td>
+        <td><%= book.Test %></td>
+        <td><%= book.author %></td>
+      </tr>
+      <% }) %>
+    </table>
+    <% } else {%>
+    <p>No books found</p>
+    <% } %>
   </body>
 </html>
