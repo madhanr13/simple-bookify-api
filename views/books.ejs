@@ -9,16 +9,22 @@
     <h1>Books from ejs</h1>
     <% if (books.length > 0) { %>
     <table border="2">
-      <th>id</th>
+      <th>S.no</th>
       <th>name</th>
-      <th>test</th>
+      <th>isbn</th>
       <th>author</th>
+      <th>price</th>
+      <th>Actions</th>
       <tr>
-        <% books.forEach(book => { %>
-        <td><%= book.id %></td>
-        <td><%= book.name %></td>
-        <td><%= book.Test %></td>
+        <% books.forEach((book, index) => { %>
+        <td><%= index + 1 %></td>
+        <td><a href="/books/<%=book.id %>"><%= book.name %></a></td>
+        <td><%= book.isbn %></td>
         <td><%= book.author %></td>
+        <td><%= book.price %></td>
+        <td>
+          <button onclick="deleteBookById('<%=book.id %>')">Delete book</button>
+        </td>
       </tr>
       <% }) %>
     </table>
@@ -26,4 +32,25 @@
     <p>No books found</p>
     <% } %>
   </body>
+  <script>
+    async function deleteBookById(id) {
+      await fetch(`/book/${id}`, {
+        method: "DELETE",
+      });
+      window.location.reload();
+    }
+    // async function deleteBookById(id) {
+    //   try {
+    //     const response = await fetch(`/book/${id}`, {
+    //       method: "DELETE",
+    //     });
+    //     if (!response.ok) {
+    //       throw new Error("Network response was not ok");
+    //     }
+    //     window.location.reload();
+    //   } catch (error) {
+    //     console.error("There was a problem with the delete operation:", error);
+    //   }
+    // }
+  </script>
 </html>

@@ -1,31 +1,31 @@
-const fs = require("fs");
-const path = require("path");
+const Book = require("../models/book");
 let books = [];
 
-function handleGetAllBooks(req, res) {
+async function handleGetAllBooks(req, res) {
+  const booksinDb = await Book.find({});
   return res.render("books", {
-    books,
+    books: booksinDb,
   });
 }
 
-function handleGetBookByID(req, res) {
+async function handleGetBookByID(req, res) {
   const id = req.params.bookId;
-  const book = books.find((e) => e.id === Number(id));
+  const book = await Book.findById(id);
   if (!book) {
     return res.status(404).json({ error: "Book not found" });
   }
-  return res.json({ book });
+  return res.render("book", { book });
 }
 
-function handleCreateNewBooks(req, res) {
+async function handleCreateNewBooks(req, res) {
   const bookFromClient = req.body;
-  books.push(bookFromClient);
+  await Book.create(bookFromClient);
   res.status(201).json({ status: "success" });
 }
 
-function handleDeleteBooksByID(req, res) {
+async function handleDeleteBooksByID(req, res) {
   const bookIdToDelete = req.params.bookId;
-  books = books.filter((e) => e.id !== Number(bookIdToDelete));
+  await Book.findByIdAndDelete(bookIdToDelete);
   return res.json({ status: "deleted" });
 }
 
