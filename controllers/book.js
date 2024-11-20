@@ -1,5 +1,4 @@
 const Book = require("../models/book");
-let books = [];
 
 async function handleGetAllBooks(req, res) {
   const booksinDb = await Book.find({});
