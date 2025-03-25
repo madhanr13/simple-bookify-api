@@ -10,7 +10,7 @@ const path = require("path");
 mongoose
   .connect("mongodb://localhost:27017/Bookify")
   .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log("Failed to connect MongoDB"));
+  .catch((err) => console.log("Failed to connect MongoDB", err));
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
